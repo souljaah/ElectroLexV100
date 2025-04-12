@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'othercategory.dart';
+import 'package:untitled1/resistordetail.dart';
 import 'componentdetails.dart';
+import 'diodes.dart';
+import 'icsdetail.dart';
+import 'capacitordetail.dart';
+import 'resistordetail.dart';
 
 void main() {
   runApp(ElectroLexApp());
@@ -123,7 +127,7 @@ class _ElectroLexHomeState extends State<ElectroLexHome> {
   String _searchQuery = '';
   String _language = 'English'; // Default language is English
 
-  final List<Map<String, dynamic>> categories = [
+  final List<Map<String, dynamic>> categories= [
     {'title': 'ICs', 'icon': Icons.electrical_services, 'color': Colors.blue},
     {'title': 'Resistors', 'icon': Icons.linear_scale, 'color': Colors.orange},
     {'title': 'Capacitors', 'icon': Icons.battery_charging_full, 'color': Colors.green},
@@ -139,7 +143,8 @@ class _ElectroLexHomeState extends State<ElectroLexHome> {
   ];
 
 
-  final List<Map<String, dynamic>> othersComponents = [
+  final List<Map<String, dynamic>> othersComponents= [
+
     {'title': 'Amplifiers', 'icon': Icons.volume_up, 'color': Colors.blue},
     {'title': 'Micromotors', 'icon': Icons.headphones, 'color': Colors.pink},
     {'title': 'Circuit Protection', 'icon': Icons.security, 'color': Colors.red},
@@ -167,7 +172,7 @@ class _ElectroLexHomeState extends State<ElectroLexHome> {
     {'title': '  Push Button\n   Switch', 'icon': Icons.radio_button_checked, 'color': Colors.deepPurple},
     {'title': 'Relays', 'icon': Icons.flash_auto, 'color': Colors.cyanAccent},
     {'title': 'Rf & Radio', 'icon': Icons.radio, 'color': Colors.red},
-    {'title': 'Switches', 'icon': Icons.toggle_on, 'color': Colors.lightBlue},
+    {'title':  'Switches', 'icon': Icons.toggle_on, 'color': Colors.lightBlue},
   ];
 
   List<Map<String, dynamic>> get allComponents => [...categories, ...othersComponents];
@@ -299,12 +304,38 @@ class _ElectroLexHomeState extends State<ElectroLexHome> {
                       context,
                       MaterialPageRoute(builder: (_) => OthersCategoryPage(othersComponents)),
                     );
-                  } else {
+                  } else if (category['title'] == 'Diodes') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => DiodeDetailPage()),
+                    );
+                  }
+                  else if (category['title'] == 'ICs') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => ICDetailPage()),
+                    );
+                  }
+                  else if (category['title'] == 'Capacitors') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => CapacitorDetailPage()),
+                    );
+                  }
+                  else if (category['title'] == 'Resistors') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => ResistorDetailPage()),
+                    );
+                  }
+                  else {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (_) => ComponentDetailPage(category['title'])),
                     );
                   }
+
+
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -430,6 +461,63 @@ class _ElectroLexHomeState extends State<ElectroLexHome> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class OthersCategoryPage extends StatelessWidget {
+  final List<Map<String, dynamic>> components;
+
+  OthersCategoryPage(this.components);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Others")),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: GridView.count(
+          crossAxisCount: 3,
+          mainAxisSpacing: 12,
+          crossAxisSpacing: 12,
+          childAspectRatio: 1,
+          children: components.map((item) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => ComponentDetailPage(item['title'])),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(color: item['color'], shape: BoxShape.circle),
+                      child: Icon(item['icon'], color: Colors.white, size: 28),
+                    ),
+                    const SizedBox(height: 8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6),
+                      child: Text(item['title'],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ),
     );
   }
 }
