@@ -403,10 +403,17 @@ class _ElectroLexHomeState extends State<ElectroLexHome> {
                 .map((component) {
               return GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => ComponentDetailPage(component['title'])),
-                  );
+                  if (component['title'] == 'Resistors') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => ResistorDetailPage()), // Navigate to ResistorDetailPage
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => ComponentDetailPage(component['title'])),
+                    );
+                  }
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -431,7 +438,7 @@ class _ElectroLexHomeState extends State<ElectroLexHome> {
               );
             }).toList(),
           ),
-        ),
+        )
       ],
     );
   }
@@ -521,6 +528,7 @@ class OthersCategoryPage extends StatelessWidget {
     );
   }
 }
+
 
 
 
