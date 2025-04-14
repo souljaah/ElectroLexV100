@@ -55,11 +55,7 @@ class ResistorDetailPage extends StatelessWidget {
   Widget _getResistorPage(String name) {
     switch (name) {
       case 'Carbon Film Resistor':
-        return IndividualResistorPage(
-          title: name,
-          description: 'Used in low current circuits.',
-          imagePath: 'lib/assets/1.jpg',
-        );
+        return CarbonFilmResistorPage();
       case 'Current Sense Resistors':
         return IndividualResistorPage(
           title: name,
@@ -154,3 +150,101 @@ class IndividualResistorPage extends StatelessWidget {
     );
   }
 }
+
+class CarbonFilmResistorPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Carbon Film Resistor')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: SizedBox(
+                height: 220,
+                width: screenWidth * 0.8,
+                child: Image.asset(
+                  'lib/assets/1.jpg', // Resistor image
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.broken_image, size: 64, color: Colors.grey),
+                        SizedBox(height: 8),
+                        Text("Image not found"),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Description',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'The Carbon Film Resistor is a type of fixed resistor created by depositing a thin layer of carbon film onto an insulating substrate. These resistors are widely used in electronics due to their affordability and dependable performance in low-power applications.',
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.justify,
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Specifications',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            const Text.rich(
+              TextSpan(
+                style: TextStyle(fontSize: 16),
+                children: [
+                  TextSpan(text: '• Resistance Tolerance: '),
+                  TextSpan(text: '±2% to ±5%\n\n'),
+                  TextSpan(text: '• Power Rating: '),
+                  TextSpan(text: 'Typically 1/4W to 1W\n\n'),
+                  TextSpan(text: '• Applications: '),
+                  TextSpan(
+                    text: 'Used in consumer electronics, audio devices, radios, and circuits with low current.',
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Pin Diagram',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            Center(
+              child: SizedBox(
+                height: 220,
+                width: screenWidth * 0.8,
+                child: Image.asset(
+                  'lib/assets/2.jpg', // Pin diagram image
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.broken_image, size: 64, color: Colors.grey),
+                        SizedBox(height: 8),
+                        Text("Pin diagram not found"),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
