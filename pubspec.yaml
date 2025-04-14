@@ -30,4 +30,5 @@ flutter:
   uses-material-design: true
 
   # Define the assets folder for images
-  # assets:
+  assets:
+    - lib/assets/1.jpg
