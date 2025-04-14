@@ -32,3 +32,4 @@ flutter:
   # Define the assets folder for images
   assets:
     - lib/assets/1.jpg
+    - lib/assets/2.jpg
